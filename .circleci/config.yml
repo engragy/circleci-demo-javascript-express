@@ -5,6 +5,8 @@ workflows:
   build:
     jobs:
       - build
+      - save_hello_world_output
+      - print_output_file
 
 jobs:
   build:
@@ -40,3 +42,27 @@ jobs:
           prefix: coverage
       - store_test_results:
           path: test-results.xml
+
+  save_hello_world_output:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:
+          name: "write hello world to file"
+          command: echo "hello world" > output.txt
+      - persist_to_workspace:
+          root: .  # current working dir
+          paths:  # list of files to persist to workspace
+            - output.txt
+
+  print_output_file:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      # attach the files you persisted in the doing-things-job
+      - attach_workspace:
+          at: . # relative path to our working directory
+      - run:
+          command: |
+            cat output.txt
