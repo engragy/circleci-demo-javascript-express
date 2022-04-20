@@ -62,7 +62,7 @@ jobs:
     steps:
       # attach the files you persisted in the doing-things-job
       - attach_workspace:
-          at: . # relative path to our working directory
+          at: ./workspace # relative path to our working directory
       - run:
           command: |
-            cat output.txt
+            cat ./workspace/output.txt
