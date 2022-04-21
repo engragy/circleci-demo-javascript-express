@@ -91,5 +91,5 @@ jobs:
       - run:
           when: on_fail
           command: |
-          print_pipeline_id
-          echo "Hello Error"
+            print_pipeline_id
+            echo "Hello Error"
