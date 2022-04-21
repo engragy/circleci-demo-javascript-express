@@ -1,5 +1,11 @@
 version: 2.1
 
+commands:
+  print_pipeline_id:
+    type: string
+    steps:
+      - run: echo "this workflow ID: $CIRCLE_WORKFLOW_ID"
+
 workflows:
   version: 2
   build:
@@ -7,6 +13,7 @@ workflows:
       - build
       - save_hello_world_output
       - print_output_file:
+          # without ordering jobs, workspace is not filled when attached and no errors if workspace is empty
           requires:
             - save_hello_world_output
 
@@ -64,7 +71,8 @@ jobs:
     steps:
       # attach the files you persisted in the doing-things-job
       - attach_workspace:
-          at: ./workspace # relative path to our working directory
+          at: ./workspace  # relative path to our working directory
+      - print_pipeline_id  # calling reusable command (code)
       - run:
           command: |
             cat ./workspace/output.txt
