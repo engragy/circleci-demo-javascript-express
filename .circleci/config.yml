@@ -16,7 +16,6 @@ workflows:
           requires:
             - save_hello_world_output
       - failing_on_pupose
-      # - act_on_failer
 
 jobs:
   build:
@@ -82,19 +81,9 @@ jobs:
     docker:
       - image: cimg/base:stable
     steps:
-      - run: exit 1  # returning somting other than 0
-      - run:
+      - run: return 1  # returning somting other than 0
+      - run:  # alternative action on failer
+          name: action on error
           when: on_fail
           command: |
-            print_pipeline_id
             echo "Hello Error!"
-
-  # act_on_failer:
-  #   docker:
-  #     - image: cimg/base:stable
-  #   steps:
-  #     - run:
-  #         when: on_fail
-  #         command: |
-  #           print_pipeline_id
-  #           echo "Hello Error"
