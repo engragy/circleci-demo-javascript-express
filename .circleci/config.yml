@@ -88,5 +88,6 @@ jobs:
     docker:
       - image: cimg/base:stable
     steps:
-      - run: echo "Hello Error!"
-    when: on_fail
+      - run:
+          command: echo "Hello Error!"
+          when: on_fail
