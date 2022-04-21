@@ -89,5 +89,7 @@ jobs:
       - image: cimg/base:stable
     steps:
       - run:
-          command: echo "Hello Error"
           when: on_fail
+          command: |
+          print_pipeline_id
+          echo "Hello Error"
