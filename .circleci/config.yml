@@ -89,5 +89,5 @@ jobs:
       - image: cimg/base:stable
     steps:
       - run:
-          command: echo "Hello Error!"
+          command: echo "Hello Error\!"
           when: on_fail
